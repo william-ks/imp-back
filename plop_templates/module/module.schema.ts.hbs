@@ -1,0 +1,12 @@
+const create{{pascalCase name}}Schema = {
+	tags: ["{{pascalCase name}}"],
+	body: {
+		type: "object",
+		properties: {
+			name: { type: "string" },
+			email: { type: "string", format: "email" },
+		},
+	},
+};
+
+export { create{{pascalCase name}}Schema };

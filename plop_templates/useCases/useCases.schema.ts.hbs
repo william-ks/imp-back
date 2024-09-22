@@ -1,0 +1,12 @@
+const {{camelCase useCaseName}}Schema = {
+	tags: ["{{pascalCase moduleName}}"],
+	body: {
+		type: "object",
+		properties: {
+			name: { type: "string" },
+			email: { type: "string", format: "email" },
+		},
+	},
+};
+
+export { {{camelCase useCaseName}}Schema };

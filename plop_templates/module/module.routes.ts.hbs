@@ -1,0 +1,13 @@
+import { FastifyInstance as FI, FastifyPluginOptions as FO } from "fastify";
+import { create{{pascalCase name}}Controller, create{{pascalCase name}}Schema } from "./useCases/create{{pascalCase name}}";
+
+const {{camelCase name}}Router = async (fastify: FI, options: FO) => {
+	fastify.post("/create", {
+		schema: create{{pascalCase name}}Schema,
+		handler: (req, res) => {
+			return create{{pascalCase name}}Controller.handle(req, res);
+		},
+	});
+};
+
+export { {{camelCase name}}Router };

@@ -1,0 +1,10 @@
+import { FastifyReply as FQ, FastifyRequest as FY } from "fastify";
+import { Create{{pascalCase name}}Service } from "./create{{pascalCase name}}.service";
+
+class Create{{pascalCase name}}Controller {
+    constructor(private service: Create{{pascalCase name}}Service) {}
+
+    async handle(req: FQ, reply: FY) {}
+}
+
+export { Create{{pascalCase name}}Controller };

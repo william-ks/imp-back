@@ -1,0 +1,49 @@
+{
+  "name": "fastifyTemplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "William Krisley <will.ks2101@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts",
+    "husky": "husky",
+    "plop": "plop"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^4.1.0",
+    "@prisma/client": "^5.19.0",
+    "bcrypt": "^5.1.1",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.0.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@mermaid-js/mermaid-cli": "^10.9.1",
+    "@types/bcrypt": "^5.0.2",
+    "@types/dotenv": "^8.2.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^22.5.4",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "git-commit-msg-linter": "^5.0.8",
+    "globals": "^15.9.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "plop": "^4.0.1",
+    "prettier": "^3.3.3",
+    "prisma": "^5.19.1",
+    "prisma-erd-generator": "^1.11.2",
+    "tsup": "^8.2.4",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0",
+    "vitest": "^2.0.5"
+  }
+}

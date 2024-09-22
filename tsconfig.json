@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "ES2023"
+        ],
+        "target": "ES2022",
+        "module": "CommonJS",
+        "esModuleInterop": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/@types"
+        ],
+        "outDir": "./dist",
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "./src/**/*.ts",
+    ],
+    "paths": {
+        "@application/*": [
+            "./src/*"
+        ]
+    }
+}
