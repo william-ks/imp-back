@@ -13,7 +13,7 @@ datasource db {
 }
 
 model Admin {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
   publicId String @unique @map("public_id")
   name     String
   email    String @unique
