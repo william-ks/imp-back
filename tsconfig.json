@@ -12,14 +12,15 @@
         ],
         "outDir": "./dist",
         "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "baseUrl": "./",
+        "paths": {
+            "@application/*": [
+                "./src/*"
+            ]
+        }
     },
     "include": [
         "./src/**/*.ts",
     ],
-    "paths": {
-        "@application/*": [
-            "./src/*"
-        ]
-    }
 }
