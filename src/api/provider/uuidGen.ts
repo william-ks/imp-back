@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-const uuidGen = () => {
+const uuidGen = (): string => {
 	return nanoid();
 };
 

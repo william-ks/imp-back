@@ -15,12 +15,6 @@ const handleErrors = (
 	return reply
 		.code(Number(error.code) || defaultError.code)
 		.send({ message: error.message || defaultError.message });
-
-	if (error.validation) {
-		return reply.code(400).send({ message: "Invalid request" });
-	} else {
-		return reply.code(500).send({ message: "Internal Server Error" });
-	}
 };
 
 export { handleErrors };

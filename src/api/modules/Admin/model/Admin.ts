@@ -11,7 +11,7 @@ export class Admin {
 	public isDisabled: boolean = false;
 
 	public createdAt: Date = new Date();
-	public updatedAt: Date;
+	public updatedAt: Date = new Date();
 
 	constructor(props: Omit<Admin, "publicId">, publicId?: string) {
 		Object.assign(this, props);
