@@ -7,7 +7,7 @@ export class Admin {
 	public email: string;
 	public password: string;
 
-	public isActive: boolean = false;
+	public wasAccepted: boolean = false;
 	public isDisabled: boolean = false;
 
 	public createdAt: Date = new Date();
