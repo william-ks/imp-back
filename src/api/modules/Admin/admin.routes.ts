@@ -4,13 +4,21 @@ import {
 	createAdminSchema,
 } from "./useCases/createAdmin";
 import { ICreateAdminDTO } from "./useCases/createAdmin/entities/createAdmin.DTO";
+import { ILoginAdminDTO } from "./useCases/loginAdmin/entities/loginAdmin.DTO";
+import { loginAdminController, loginAdminSchema } from "./useCases/loginAdmin";
 
 const adminRouter = async (fastify: FI, options: FO) => {
 	fastify.post<{ Body: ICreateAdminDTO }>("/create", {
-		schema: createAdminSchema, // Schema de validação
+		schema: createAdminSchema,
 		handler: async (request, reply) => {
-			// Aqui você está chamando o controlador
 			return createAdminController.handle(request, reply);
+		},
+	});
+
+	fastify.post<{ Body: ILoginAdminDTO }>("/login", {
+		schema: loginAdminSchema,
+		handler: async (request, reply) => {
+			return loginAdminController.handle(request, reply);
 		},
 	});
 };
