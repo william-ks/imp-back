@@ -63,7 +63,7 @@ describe("LoginAdminService", () => {
 		};
 
 		await expect(service.execute(adminData)).rejects.toEqual({
-			code: 401,
+			code: 403,
 			message: "User not accepted",
 		});
 	});
@@ -87,8 +87,34 @@ describe("LoginAdminService", () => {
 		};
 
 		await expect(service.execute(adminData)).rejects.toEqual({
-			code: 401,
+			code: 403,
 			message: "User is disabled",
+		});
+	});
+
+	test("should login if password is wrong", async () => {
+		vi.spyOn(mockAdminRepository, "findByEmail").mockResolvedValueOnce({
+			id: 1,
+			publicId: "unique-public-id",
+			name: "Admin User",
+			email: "admin@example.com",
+			password: "hashedPassword",
+			isDisabled: false,
+			wasAccepted: true,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		});
+
+		vi.spyOn(handlePass, "compare").mockResolvedValueOnce(false);
+
+		const adminData: ILoginAdminDTO = {
+			email: "admin@example.com",
+			password: "securePassword123",
+		};
+
+		await expect(service.execute(adminData)).rejects.toEqual({
+			code: 401,
+			message: "Invalid email and/or password.",
 		});
 	});
 

@@ -22,14 +22,14 @@ class LoginAdminService {
 
 		if (!user.wasAccepted) {
 			throw {
-				code: 401,
+				code: 403,
 				message: "User not accepted",
 			};
 		}
 
 		if (user.isDisabled) {
 			throw {
-				code: 401,
+				code: 403,
 				message: "User is disabled",
 			};
 		}
@@ -42,21 +42,28 @@ class LoginAdminService {
 		if (!isValidPass) {
 			throw {
 				code: 401,
-				message: "Invalid password",
+				message: "Invalid email and/or password.",
 			};
 		}
 
-		const token = await handleToken.generateToken(user.publicId);
+		const token = handleToken.generateToken(user.publicId);
 
 		const {
 			isDisabled,
 			wasAccepted,
 			password: _,
 			id,
+			publicId,
 			...returnUser
 		} = user;
 
-		return { user: returnUser, token };
+		return {
+			user: {
+				...returnUser,
+				id: publicId,
+			},
+			token,
+		};
 	}
 }
 
