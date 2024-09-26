@@ -10,6 +10,9 @@
     "plop": "plop",
     "test": "vitest"
   },
+  "prisma":{
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^4.1.0",
