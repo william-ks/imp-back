@@ -4,8 +4,10 @@ import {
 	createAdminSchema,
 } from "./useCases/createAdmin";
 import { ICreateAdminDTO } from "./useCases/createAdmin/entities/createAdmin.DTO";
-import { ILoginAdminDTO } from "./useCases/loginAdmin/entities/loginAdmin.DTO";
 import { loginAdminController, loginAdminSchema } from "./useCases/loginAdmin";
+import { ILoginAdminDTO } from "./useCases/loginAdmin/entities/loginAdmin.DTO";
+import { readSelfController, readSelfSchema } from "./useCases/readSelf";
+import { handleAdminLogin } from "@application/api/middlewares/handleAdminLogin";
 
 const adminRouter = async (fastify: FI, options: FO) => {
 	fastify.post<{ Body: ICreateAdminDTO }>("/create", {
@@ -19,6 +21,14 @@ const adminRouter = async (fastify: FI, options: FO) => {
 		schema: loginAdminSchema,
 		handler: async (request, reply) => {
 			return loginAdminController.handle(request, reply);
+		},
+	});
+
+	fastify.get("/read/self", {
+		schema: readSelfSchema,
+		preHandler: handleAdminLogin,
+		handler: async (request, reply) => {
+			return readSelfController.handle(request, reply);
 		},
 	});
 };
