@@ -9,6 +9,12 @@ class AdminRepository implements IAdminRepository {
 		return admin;
 	}
 
+	async findByEmail(email: string): Promise<Admin> {
+		const admin = await prisma.admin.findFirst({ where: { email } });
+
+		return admin;
+	}
+
 	async create(props: ICreateAdmin): Promise<void> {
 		await prisma.admin.create({ data: props });
 	}
