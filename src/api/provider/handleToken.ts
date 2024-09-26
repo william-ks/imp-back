@@ -5,7 +5,6 @@ const handleToken = {
 		return jwt.sign(
 			{
 				sub: publicId,
-				exp: Math.floor(Date.now() / 1000) + 60 * 60,
 			},
 			process.env.SECRET_KEY,
 			{
