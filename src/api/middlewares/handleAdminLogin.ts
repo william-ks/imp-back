@@ -1,9 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { handleToken } from "../provider/handleToken";
+import { AdminRepository } from "../modules/Admin/repository/AdminRepository";
 
 const handleAdminLogin = async (req: FastifyRequest, res: FastifyReply) => {
-	console.log("here");
-
 	try {
 		const authorization = req.headers.authorization;
 		if (!authorization || !authorization.includes("Bearer")) {
@@ -12,9 +11,17 @@ const handleAdminLogin = async (req: FastifyRequest, res: FastifyReply) => {
 
 		const token = authorization.split(" ")[1];
 
-		const data = handleToken.verify(token);
+		const { sub } = handleToken.verify(token);
 
-		console.log(data);
+		const adminRepository = new AdminRepository();
+
+		const admin = await adminRepository.findByPublicId(sub as string);
+
+		if (!admin || !admin.wasAccepted || admin.isDisabled) {
+			throw new Error("Invalid token");
+		}
+
+		req.admin = admin;
 	} catch (e) {
 		throw {
 			code: 401,
