@@ -10,17 +10,18 @@ import { readSelfController, readSelfSchema } from "./useCases/readSelf";
 import { handleAdminLogin } from "@application/api/middlewares/handleAdminLogin";
 
 const adminRouter = async (fastify: FI, options: FO) => {
-	fastify.post<{ Body: ICreateAdminDTO }>("/create", {
-		schema: createAdminSchema,
-		handler: async (request, reply) => {
-			return createAdminController.handle(request, reply);
-		},
-	});
-
 	fastify.post<{ Body: ILoginAdminDTO }>("/login", {
 		schema: loginAdminSchema,
 		handler: async (request, reply) => {
 			return loginAdminController.handle(request, reply);
+		},
+	});
+
+	fastify.post<{ Body: ICreateAdminDTO }>("/create", {
+		schema: createAdminSchema,
+		preHandler: handleAdminLogin,
+		handler: async (request, reply) => {
+			return createAdminController.handle(request, reply);
 		},
 	});
 
