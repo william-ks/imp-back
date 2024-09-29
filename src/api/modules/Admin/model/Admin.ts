@@ -7,11 +7,14 @@ export class Admin {
 	public email: string;
 	public password: string;
 
-	public wasAccepted: boolean = false;
 	public isDisabled: boolean = false;
 
 	public createdAt: Date = new Date();
 	public updatedAt: Date = new Date();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public adminFeature?: any[] = [];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public features?: any[] = [];
 
 	constructor(props: Omit<Admin, "publicId">, publicId?: string) {
 		Object.assign(this, props);

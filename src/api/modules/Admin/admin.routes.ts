@@ -8,6 +8,7 @@ import { loginAdminController, loginAdminSchema } from "./useCases/loginAdmin";
 import { ILoginAdminDTO } from "./useCases/loginAdmin/entities/loginAdmin.DTO";
 import { readSelfController, readSelfSchema } from "./useCases/readSelf";
 import { handleAdminLogin } from "@application/api/middlewares/handleAdminLogin";
+import { readAllController, readAllSchema } from "./useCases/readAll";
 
 const adminRouter = async (fastify: FI, options: FO) => {
 	fastify.post<{ Body: ILoginAdminDTO }>("/login", {
@@ -30,6 +31,14 @@ const adminRouter = async (fastify: FI, options: FO) => {
 		preHandler: handleAdminLogin,
 		handler: async (request, reply) => {
 			return readSelfController.handle(request, reply);
+		},
+	});
+
+	fastify.get("/read/all", {
+		schema: readAllSchema,
+		preHandler: handleAdminLogin,
+		handler: async (request, reply) => {
+			return readAllController.handle(request, reply);
 		},
 	});
 };

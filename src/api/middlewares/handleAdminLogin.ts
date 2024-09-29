@@ -15,7 +15,7 @@ const handleAdminLogin = async (req: FastifyRequest, res: FastifyReply) => {
 
 		const adminRepository = new AdminRepository();
 
-		const admin = await adminRepository.findByPublicId(sub as string);
+		const admin = await adminRepository.findByPublicId(sub as string, true);
 
 		if (!admin || !admin.wasAccepted || admin.isDisabled) {
 			throw new Error("Invalid token");
@@ -23,10 +23,17 @@ const handleAdminLogin = async (req: FastifyRequest, res: FastifyReply) => {
 
 		req.admin = admin;
 	} catch (e) {
-		throw {
-			code: 401,
-			message: e.message,
-		};
+		if (e.message === "jwt expired") {
+			throw {
+				code: 401,
+				message: "Token has expired",
+			};
+		} else {
+			throw {
+				code: 401,
+				message: e.message,
+			};
+		}
 	}
 };
 

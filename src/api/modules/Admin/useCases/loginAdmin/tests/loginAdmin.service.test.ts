@@ -9,6 +9,7 @@ const mockAdminRepository: IAdminRepository = {
 	findByEmail: vi.fn(),
 	create: vi.fn(),
 	findByPublicId: vi.fn(),
+	findAll: vi.fn(),
 };
 
 vi.mock("@application/api/provider/handlePass", () => ({
@@ -44,30 +45,6 @@ describe("LoginAdminService", () => {
 		});
 	});
 
-	test("should login if email is not accepted", async () => {
-		vi.spyOn(mockAdminRepository, "findByEmail").mockResolvedValueOnce({
-			id: 1,
-			publicId: "unique-public-id",
-			name: "Admin User",
-			email: "admin@example.com",
-			password: "hashedPassword",
-			isDisabled: false,
-			wasAccepted: false,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		});
-
-		const adminData: ILoginAdminDTO = {
-			email: "admin@example.com",
-			password: "securePassword123",
-		};
-
-		await expect(service.execute(adminData)).rejects.toEqual({
-			code: 403,
-			message: "User not accepted",
-		});
-	});
-
 	test("should login if email is disabled", async () => {
 		vi.spyOn(mockAdminRepository, "findByEmail").mockResolvedValueOnce({
 			id: 1,
@@ -76,7 +53,6 @@ describe("LoginAdminService", () => {
 			email: "admin@example.com",
 			password: "hashedPassword",
 			isDisabled: true,
-			wasAccepted: true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
@@ -100,7 +76,6 @@ describe("LoginAdminService", () => {
 			email: "admin@example.com",
 			password: "hashedPassword",
 			isDisabled: false,
-			wasAccepted: true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
@@ -126,7 +101,6 @@ describe("LoginAdminService", () => {
 			email: "admin@example.com",
 			password: "hashedPassword",
 			isDisabled: false,
-			wasAccepted: true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});

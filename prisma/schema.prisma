@@ -19,11 +19,32 @@ model Admin {
   email    String @unique
   password String
 
-  wasAccepted   Boolean @default(false) @map("was_accepted")
-  isDisabled Boolean @default(false) @map("is_disabled")
+  isDisabled  Boolean @default(false) @map("is_disabled")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  adminFeature AdminFeature[]
 
   @@map("admins")
+}
+
+model Feature {
+  id            Int            @id @default(autoincrement())
+  publicId      String         @unique @map("public_id")
+  title         String
+  code          String
+  adminFeatures AdminFeature[]
+
+  @@map("features")
+}
+
+model AdminFeature {
+  id         Int     @id @default(autoincrement())
+  publicId   String  @unique @map("public_id")
+  admin      Admin   @relation(fields: [adminId], references: [id])
+  adminId    Int     @map("admin_id")
+  feature    Feature @relation(fields: [featuresId], references: [id])
+  featuresId Int     @map("feature_id")
+
+  @@map("admin_features")
 }

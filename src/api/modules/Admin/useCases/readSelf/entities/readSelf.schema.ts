@@ -10,6 +10,20 @@ const readSelfSchema = {
 				email: { type: "string" },
 				createdAt: { type: "string", format: "date-time" },
 				updatedAt: { type: "string", format: "date-time" },
+				features: {
+					type: "array",
+					items: {
+						type: "object",
+						properties: {
+							publicId: {
+								type: "string",
+							},
+							title: {
+								type: "string",
+							},
+						},
+					},
+				},
 			},
 			additionalProperties: false,
 		},

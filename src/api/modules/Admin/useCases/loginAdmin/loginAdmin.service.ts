@@ -20,13 +20,6 @@ class LoginAdminService {
 			};
 		}
 
-		if (!user.wasAccepted) {
-			throw {
-				code: 403,
-				message: "User not accepted",
-			};
-		}
-
 		if (user.isDisabled) {
 			throw {
 				code: 403,
@@ -48,14 +41,7 @@ class LoginAdminService {
 
 		const token = handleToken.generateToken(user.publicId);
 
-		const {
-			isDisabled,
-			wasAccepted,
-			password: _,
-			id,
-			publicId,
-			...returnUser
-		} = user;
+		const { isDisabled, password: _, id, publicId, ...returnUser } = user;
 
 		return {
 			user: {

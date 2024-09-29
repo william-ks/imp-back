@@ -15,14 +15,6 @@ class CreateAdminService {
 		);
 
 		if (emailAlreadyExists) {
-			if (!emailAlreadyExists.wasAccepted) {
-				throw {
-					code: 400,
-					message:
-						"Email already exists but has not been accepted yet.",
-				};
-			}
-
 			if (emailAlreadyExists.isDisabled) {
 				throw {
 					code: 400,

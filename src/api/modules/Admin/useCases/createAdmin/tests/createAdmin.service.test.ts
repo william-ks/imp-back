@@ -11,6 +11,7 @@ const mockAdminRepository: IAdminRepository = {
 	findByEmail: vi.fn(),
 	create: vi.fn(),
 	findByPublicId: vi.fn(),
+	findAll: vi.fn(),
 };
 
 // Mock do uuidGen e handlePass
@@ -58,32 +59,6 @@ describe("CreateAdminService", () => {
 		});
 	});
 
-	it("should throw an error if email already exists and was not accepted", async () => {
-		// Simula o email já existente e aceito
-		vi.spyOn(mockAdminRepository, "findByEmail").mockResolvedValueOnce({
-			id: 1,
-			publicId: "unique-public-id",
-			name: "Admin User",
-			email: "admin@example.com",
-			password: "hashedPassword",
-			isDisabled: false,
-			wasAccepted: false,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		});
-
-		const adminData: ICreateAdminDTO = {
-			name: "Admin User",
-			email: "admin@example.com",
-			password: "securePassword123",
-		};
-
-		await expect(service.execute(adminData)).rejects.toEqual({
-			code: 400,
-			message: "Email already exists but has not been accepted yet.",
-		});
-	});
-
 	it("should throw an error if email already exists and is disabled", async () => {
 		// Simula o email já existente e desativado
 		vi.spyOn(mockAdminRepository, "findByEmail").mockResolvedValueOnce({
@@ -93,7 +68,6 @@ describe("CreateAdminService", () => {
 			email: "admin@example.com",
 			password: "hashedPassword",
 			isDisabled: true,
-			wasAccepted: true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
@@ -119,7 +93,6 @@ describe("CreateAdminService", () => {
 			email: "admin@example.com",
 			password: "hashedPassword",
 			isDisabled: false,
-			wasAccepted: true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
