@@ -17,7 +17,7 @@ const handleAdminLogin = async (req: FastifyRequest, res: FastifyReply) => {
 
 		const admin = await adminRepository.findByPublicId(sub as string, true);
 
-		if (!admin || !admin.wasAccepted || admin.isDisabled) {
+		if (!admin || admin.isDisabled) {
 			throw new Error("Invalid token");
 		}
 
